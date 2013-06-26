@@ -1,0 +1,52 @@
+<html>
+<head>
+    <script src="phonegap.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+<!--[if lt IE 9]>
+    <script type="text/javascript" src="scripts/flashcanvas.js"></script>
+<![endif]-->
+</head>
+<body>
+<div id="signature"></div>
+
+<img src="" id="sigImg"/>
+<!--
+<p>Img display</p>
+
+
+<p>Svg display</p>
+<svg id="svgDisplay"></svg>
+
+<p>Svg display b64</p>
+<svg id="svgDisplayb64"></svg>
+-->
+<script type="text/javascript" src="scripts/jquery.js"></script>
+
+<script src="scripts/jSignature.min.js"></script>
+
+<script src="scripts/jSignature.UndoButton.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#signature').jSignature('init',{UndoButton:true});
+    });
+
+    $('#signature').bind('change',function(e)
+    {
+        var signatureObj = $(e.target);
+        var svgData = signatureObj.jSignature('getData','svg');
+        var svgB64Data = signatureObj.jSignature('getData','svgbase64');
+
+        $('#signatureObject').attr('data','data:' + svgB64Data.join(','));
+
+        var signatureImage = $('#sigImg');
+        signatureImage.attr('src','data:' + svgB64Data.join(','));
+
+        $('#svgDisplay').html(svgData[1]);
+
+        $('#svgDisplayb64').html(svgB64Data[1]);
+    });
+</script>
+</body>
+</html>
